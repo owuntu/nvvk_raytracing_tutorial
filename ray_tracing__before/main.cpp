@@ -127,6 +127,13 @@ int main(int argc, char** argv)
   contextInfo.addInstanceExtension(VK_EXT_DEBUG_UTILS_EXTENSION_NAME, true);  // Allow debug names
   contextInfo.addDeviceExtension(VK_KHR_SWAPCHAIN_EXTENSION_NAME);            // Enabling ability to present rendering
 
+  // #VKRay: Activate the ray tracing extension
+  VkPhysicalDeviceAccelerationStructureFeaturesKHR accelStructFeatures {VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ACCELERATION_STRUCTURE_FEATURES_KHR};
+  contextInfo.addDeviceExtension(VK_KHR_ACCELERATION_STRUCTURE_EXTENSION_NAME, false, &accelStructFeatures);
+  VkPhysicalDeviceRayTracingPipelineFeaturesKHR rtPipelineFeatures{VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_FEATURES_KHR};
+  contextInfo.addDeviceExtension(VK_KHR_RAY_TRACING_PIPELINE_EXTENSION_NAME, false, &rtPipelineFeatures);
+  contextInfo.addDeviceExtension(VK_KHR_DEFERRED_HOST_OPERATIONS_EXTENSION_NAME); // Required by ray tracing pipeline
+
   // Creating Vulkan base application
   nvvk::Context vkctx{};
   vkctx.initInstance(contextInfo);
@@ -161,6 +168,9 @@ int main(int argc, char** argv)
   helloVk.createUniformBuffer();
   helloVk.createObjDescriptionBuffer();
   helloVk.updateDescriptorSet();
+
+  // #VKRay
+  helloVk.initRayTracing();
 
   helloVk.createPostDescriptor();
   helloVk.createPostPipeline();
