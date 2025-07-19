@@ -25,6 +25,7 @@
 #include "nvvk/memallocator_dma_vk.hpp"
 #include "nvvk/resourceallocator_vk.hpp"
 #include "shaders/host_device.h"
+#include "nvvk/raytraceKHR_vk.hpp"
 
 //--------------------------------------------------------------------------------------------------
 // Simple rasterizer of OBJ objects
@@ -123,4 +124,5 @@ public:
   // #VKRay
   void initRayTracing();
   VkPhysicalDeviceRayTracingPipelinePropertiesKHR m_rtProperties{VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR};
+  nvvk::RaytracingBuilderKHR m_rtBuilder;
 };
