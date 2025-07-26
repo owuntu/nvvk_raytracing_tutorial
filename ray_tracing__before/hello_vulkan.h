@@ -123,6 +123,9 @@ public:
 
   // #VKRay
   void initRayTracing();
+  auto objectToVkGeometryKHR(const ObjModel& modle);
+  void createBottomLevelAS();
+
   VkPhysicalDeviceRayTracingPipelinePropertiesKHR m_rtProperties{VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_PIPELINE_PROPERTIES_KHR};
   nvvk::RaytracingBuilderKHR m_rtBuilder;
 };
